@@ -16,7 +16,6 @@ class MeetingAdapter(private val list: List<Meeting>) : RecyclerView.Adapter<Mee
         val tvDuration: TextView = view.findViewById(R.id.tvDuration)
         val tvParticipants: TextView = view.findViewById(R.id.tvParticipants)
 
-        // PENTING: Daftarkan semua ImageView
         val imgMeeting: ImageView = view.findViewById(R.id.imgMeeting)
         val imgTimer: ImageView = view.findViewById(R.id.imgTimer)
         val imgGroup: ImageView = view.findViewById(R.id.imgGroup)
@@ -34,13 +33,11 @@ class MeetingAdapter(private val list: List<Meeting>) : RecyclerView.Adapter<Mee
         holder.tvDuration.text = data.duration
         holder.tvParticipants.text = "Peserta: ${data.participants}"
 
-        // Pasang Gambar dari folder drawable
         holder.imgMeeting.setImageResource(R.drawable.meeting1)
         holder.imgTimer.setImageResource(R.drawable.meeting3)
         holder.imgGroup.setImageResource(R.drawable.meeting4)
         holder.imgIde.setImageResource(R.drawable.meeting5)
 
-        // Logika lampu ide (hanya muncul jika isEfficient = true)
         if (data.isEfficient) {
             holder.imgIde.setImageResource(R.drawable.meeting5)
             holder.imgIde.visibility = View.VISIBLE
