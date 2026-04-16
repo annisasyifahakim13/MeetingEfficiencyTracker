@@ -1,61 +1,134 @@
 package com.example.meetingefficiencytracker
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.*
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.meetingefficiencytracker.model.MeetingData
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MeetingScreen() {
+fun MeetingScreen(
+    viewModel: MeetingViewModel = viewModel(),
+    onBack: () -> Unit
+) {
+    val title by viewModel.meetingTitle.collectAsState()
+    val duration by viewModel.duration.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
-    val popularList = listOf(
-        MeetingData("Daily Standup", "Durasi 15 menit", "5 peserta", R.drawable.meeting1),
-        MeetingData("Sprint Review", "Durasi 60 menit", "10 peserta", R.drawable.meeting2),
-        MeetingData("Client Meeting", "Durasi 45 menit", "4 peserta", R.drawable.meeting3)
-    )
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
 
-    val meetingList = listOf(
-        MeetingData("Daily Standup", "Durasi 15 menit", "5 peserta", R.drawable.meeting1),
-        MeetingData("Sprint Review", "Durasi 60 menit", "10 peserta", R.drawable.meeting2),
-        MeetingData("Strategy Planning", "Durasi 90 menit", "8 peserta", R.drawable.meeting3),
-        MeetingData("Client Pitch", "Durasi 45 menit", "4 peserta", R.drawable.meeting4),
-        MeetingData("Budget Meeting", "Durasi 120 menit", "6 peserta", R.drawable.meeting5)
-    )
-
-    LazyColumn {
-
-        item {
-            Text(
-                text = "Meeting Populer",
-                fontSize = 20.sp,
-                modifier = Modifier.padding(16.dp)
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Meeting Tracker") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                }
             )
         }
-
-        item {
-            LazyRow(
-                modifier = Modifier.padding(start = 16.dp)
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(4.dp)
             ) {
-                items(popularList) { item ->
-                    PopularItem(item)
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("Tambah Meeting Baru", style = MaterialTheme.typography.titleMedium)
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedTextField(
+                        value = title,
+                        onValueChange = { viewModel.updateTitle(it) },
+                        label = { Text("Judul Meeting") },
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !isLoading
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    OutlinedTextField(
+                        value = duration,
+                        onValueChange = { viewModel.updateDuration(it) },
+                        label = { Text("Durasi (menit)") },
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = !isLoading
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedButton(
+                            onClick = { viewModel.clearMeeting() },
+                            modifier = Modifier.weight(1f),
+                            enabled = !isLoading
+                        ) {
+                            Text("Reset")
+                        }
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        Button(
+                            onClick = {
+                                viewModel.saveMeeting { savedTitle ->
+                                    scope.launch {
+                                        snackbarHostState.showSnackbar("Berhasil menyimpan: $savedTitle")
+                                    }
+                                }
+                            },
+                            modifier = Modifier.weight(1f),
+                            enabled = !isLoading && title.isNotBlank()
+                        ) {
+                            if (isLoading) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(20.dp),
+                                    color = MaterialTheme.colorScheme.onPrimary,
+                                    strokeWidth = 2.dp
+                                )
+                            } else {
+                                Text("Simpan")
+                            }
+                        }
+                    }
                 }
             }
-        }
 
-        item {
+            Spacer(modifier = Modifier.height(24.dp))
+
             Text(
-                text = "Daftar Meeting",
-                fontSize = 20.sp,
-                modifier = Modifier.padding(16.dp)
+                text = "Daftar Meeting Terkini",
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.titleMedium
             )
-        }
 
-        items(meetingList) { item ->
-            MeetingItem(item)
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+            ) {
+                ListItem(
+                    headlineContent = { Text("Daily Standup") },
+                    supportingContent = { Text("15 Menit • 5 Peserta") },
+                    trailingContent = { Text("09:00") }
+                )
+            }
         }
     }
 }
