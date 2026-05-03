@@ -62,9 +62,7 @@ fun MeetingScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading
                     )
-
                     Spacer(modifier = Modifier.height(8.dp))
-
                     OutlinedTextField(
                         value = duration,
                         onValueChange = { viewModel.updateDuration(it) },
@@ -72,9 +70,7 @@ fun MeetingScreen(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = !isLoading
                     )
-
                     Spacer(modifier = Modifier.height(16.dp))
-
                     Row(modifier = Modifier.fillMaxWidth()) {
                         OutlinedButton(
                             onClick = { viewModel.clearMeeting() },

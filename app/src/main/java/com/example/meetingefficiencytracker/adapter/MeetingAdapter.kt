@@ -1,4 +1,4 @@
-package Adapter
+package com.example.meetingefficiencytracker.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,6 @@ import com.example.meetingefficiencytracker.model.Meeting
 class MeetingAdapter(private val list: List<Meeting>) : RecyclerView.Adapter<MeetingAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val tvTitle: TextView = view.findViewById(R.id.tvTitle)
         val tvDuration: TextView = view.findViewById(R.id.tvDuration)
         val tvParticipants: TextView = view.findViewById(R.id.tvParticipants)

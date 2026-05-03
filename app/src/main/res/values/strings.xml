@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MeetingEfficiencyTracker</string>
+    <string name="participants_format">Peserta: %1$d</string>
+    <string name="duration_format">Durasi: %1$s</string>
+    <string name="info_format">Durasi: %1$s • %2$d peserta</string>
+    <string name="efficient">Efisien</string>
+    <string name="meeting_populer">Meeting Populer</string>
+    <string name="daftar_meeting">Daftar Meeting</string>
+    <string name="join_meeting">Join Meeting</string>
+    <string name="error_title">Gagal Memuat Data</string>
+    <string name="error_subtitle">Pastikan koneksi internet Anda menyala</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="confirm_join_title">Konfirmasi</string>
+    <string name="confirm_join_msg">Apakah Anda yakin ingin bergabung ke meeting %1$s?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Batal</string>
 </resources>

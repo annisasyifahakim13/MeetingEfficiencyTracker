@@ -22,9 +22,7 @@ fun PopularItem(data: MeetingData) {
             .padding(end = 10.dp),
         shape = RoundedCornerShape(12.dp)
     ) {
-
         Column {
-
             Image(
                 painter = painterResource(id = data.image),
                 contentDescription = data.title,
@@ -33,7 +31,6 @@ fun PopularItem(data: MeetingData) {
                     .fillMaxWidth(),
                 contentScale = ContentScale.Crop
             )
-
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {

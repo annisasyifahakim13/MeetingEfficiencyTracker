@@ -25,20 +25,16 @@ fun MeetingItem(data: MeetingData) {
             .padding(12.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
-
         Column {
-
             Box(
                 modifier = Modifier.height(180.dp)
             ) {
-
                 Image(
                     painter = painterResource(id = data.image),
                     contentDescription = data.title,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
-
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
