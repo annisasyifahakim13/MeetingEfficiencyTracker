@@ -44,7 +44,6 @@ fun MeetingItem(data: MeetingData) {
                             )
                         )
                 )
-
                 Column(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
@@ -55,7 +54,6 @@ fun MeetingItem(data: MeetingData) {
                     Text(data.price, color = Color.White)
                 }
             }
-
             Button(
                 onClick = { },
                 modifier = Modifier

@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CategoryItem(title: String) {
-
     Box(
         modifier = Modifier
             .padding(end = 8.dp)

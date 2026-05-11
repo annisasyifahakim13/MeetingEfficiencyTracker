@@ -44,7 +44,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 fun isNetworkAvailable(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val network = connectivityManager.activeNetwork ?: return false
@@ -56,7 +55,6 @@ fun isNetworkAvailable(context: Context): Boolean {
         else -> false
     }
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardAsliScreen(onNavigateToTracker: () -> Unit) {
@@ -110,7 +108,6 @@ if (showConfirmDialog) {
             }
         )
     }
-
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { paddingValues ->
@@ -164,7 +161,6 @@ if (showConfirmDialog) {
                         fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
-
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -174,7 +170,6 @@ if (showConfirmDialog) {
                             "Design" to R.drawable.meeting2,
                             "Tech Sync" to R.drawable.meeting3
                         )
-
                         popularMeetings.forEach { (name, imgRes) ->
                             Card(
                                 onClick = {
@@ -202,19 +197,15 @@ if (showConfirmDialog) {
                             }
                         }
                     }
-
                     Spacer(modifier = Modifier.height(32.dp))
-
                     Text(
                         text = stringResource(R.string.daftar_meeting),
                         fontSize = 22.sp,
                         fontWeight = FontWeight.ExtraBold,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
-
                     val titles = listOf("Daily Standup", "Sprint Review", "Strategy Planning")
                     val banners = listOf(R.drawable.meeting4, R.drawable.meeting5, R.drawable.meeting1)
-
                     repeat(titles.size) { index ->
                         Card(
                             modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),

@@ -8,7 +8,6 @@ val BackgroundLight = Color(0xFFF5F7FA)
 val SurfaceLight = Color(0xFFFFFFFF)
 val OnPrimary = Color.White
 val TextPrimary = Color(0xFF212121)
-
 val PrimaryDark = Color(0xFF0D47A1)
 val BackgroundDark = Color(0xFF121212)
 val SurfaceDark = Color(0xFF1E1E1E)

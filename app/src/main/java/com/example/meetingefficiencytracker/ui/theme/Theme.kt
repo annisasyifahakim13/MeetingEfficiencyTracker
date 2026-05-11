@@ -12,7 +12,6 @@ private val LightColors = lightColorScheme(
     onPrimary = OnPrimary,
     onBackground = TextPrimary
 )
-
 private val DarkColors = darkColorScheme(
     primary = PrimaryDark,
     background = BackgroundDark,
@@ -20,15 +19,12 @@ private val DarkColors = darkColorScheme(
     onPrimary = TextDark,
     onBackground = TextDark
 )
-
 @Composable
 fun MeetingEfficiencyTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-
     val colors = if (darkTheme) DarkColors else LightColors
-
     MaterialTheme(
         colorScheme = colors,
         typography = AppTypography,

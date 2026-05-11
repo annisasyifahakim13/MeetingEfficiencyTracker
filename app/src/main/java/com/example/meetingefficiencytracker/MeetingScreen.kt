@@ -22,10 +22,8 @@ fun MeetingScreen(
     val title by viewModel.meetingTitle.collectAsState()
     val duration by viewModel.duration.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
@@ -54,7 +52,6 @@ fun MeetingScreen(
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text("Tambah Meeting Baru", style = MaterialTheme.typography.titleMedium)
                     Spacer(modifier = Modifier.height(12.dp))
-
                     OutlinedTextField(
                         value = title,
                         onValueChange = { viewModel.updateTitle(it) },
@@ -79,9 +76,7 @@ fun MeetingScreen(
                         ) {
                             Text("Reset")
                         }
-
                         Spacer(modifier = Modifier.width(8.dp))
-
                         Button(
                             onClick = {
                                 viewModel.saveMeeting { savedTitle ->
@@ -106,15 +101,12 @@ fun MeetingScreen(
                     }
                 }
             }
-
             Spacer(modifier = Modifier.height(24.dp))
-
             Text(
                 text = "Daftar Meeting Terkini",
                 modifier = Modifier.fillMaxWidth(),
                 style = MaterialTheme.typography.titleMedium
             )
-
             Card(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
